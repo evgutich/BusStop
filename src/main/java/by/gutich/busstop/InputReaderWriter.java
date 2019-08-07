@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class InputReaderWriter {
     public static final String POSH = "Posh";
@@ -18,12 +17,12 @@ public class InputReaderWriter {
 
     private static String PATH = "D:\\BusStop\\src\\com\\company";
 
-    public static Stream<Bus> inputReader() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter Path of file input.txt: ");
-        String path = in.next();
+    public static List<Bus> inputRead(String filePath) {
+//        Scanner in = new Scanner(System.in);
+//        System.out.println("Enter Path of file input.txt: ");
+//        String path = in.next();
         List<Bus> busList = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(path + "\\input"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath + "\\input"))) {
             String line;
             String[] busInf;
             while ((line = reader.readLine()) != null) {
@@ -35,10 +34,10 @@ public class InputReaderWriter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return busList.stream();
+        return busList;
     }
 
-    public static void outputWriter(List<Bus> busList) {
+    public static void outputWrite(List<Bus> busList) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter("D:\\java\\BusStop\\src\\main\\resources\\output.txt"))) {
             for (Bus bus : busList.stream()
                     .filter(b -> b.getBusCompany().equals(POSH))
